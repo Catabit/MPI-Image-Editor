@@ -1,4 +1,15 @@
-Tema 3 APD
+Tema 3 APD - Bitire Catalin-Constantin
+
+Enunt:
+"The goal of this homework is to build a scalable MPI program that can apply multiple filters on images.
+Filters are an elemental and basic part of image processing. Many algorithms use a workflow of predefined
+filters in order to enhance certain characteristics of an image.
+In order to apply a filter to an image, we update the value of each pixel with the sum of the resulting values
+by multiplying each element from the filter kernel matrix with the value of each pixel and its surrounding
+neighbors. The number of neighbors depends on the size of the kernel matrix. For this homework we only
+consider filters of 3 × 3."
+
+Rezolvare:
 
 In implementarea temei am ales sa folosesc doua structuri custom pt MPI pentru a usura
 lizibilitatea codului si comunicatia inter-proces, taskSet (lista ce reprezinta succesiunea
@@ -20,9 +31,3 @@ are limitele bottom-top, atunci liniile bottom-1 si top+1), mai putin pentru pro
 si procesul np-1, care primesc doar o linie. 
 2. Aplicarea efectiva a filtrului curent pe chunk-ul din memorie. Se foloseste o bariera
 pentru a sincroniza procesele dupa efectuarea filtrului curent.
-
-
-Bitire Catalin-Constantin
-335CC
-
-
