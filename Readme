@@ -1,0 +1,28 @@
+Tema 3 APD
+
+In implementarea temei am ales sa folosesc doua structuri custom pt MPI pentru a usura
+lizibilitatea codului si comunicatia inter-proces, taskSet (lista ce reprezinta succesiunea
+de filtre ce urmeaza a fi aplicata) si imageChunk (bucata de imagine in responsabilitatea
+procesului in cauza).
+
+Procesul cu rank 0 se ocupa la inceput de trimiterea taskSet-ului comun catre toate celelate
+procese, iar apoi distribuie imaginea de intrare sub forma unor bucati width X height/np.
+Dupa ce isi termina faza de aplicare a filtrelor, acesta asteapta chunk-urile rezolvate
+inapoi pentru a le reasambla intr-o imagine finala si a scrie fisierul de output.
+
+Toate celelalte procese asteapta intai primirea taskSet-ului si a chunk-ului 'propriu', dupa
+care intra in faza de aplicare a filtrelor. La finalul acesteia, trimit inapoi spre rank 0
+bucata de imagine rezolvata.
+
+Faza de aplicare a filtrelor consta in 2 pasi ce se repeta pentru fiecare filtru din taskSet:
+1. Primirea a celor doua linii de care depinde procesul curent (daca chunk-ul
+are limitele bottom-top, atunci liniile bottom-1 si top+1), mai putin pentru procesul 0
+si procesul np-1, care primesc doar o linie. 
+2. Aplicarea efectiva a filtrului curent pe chunk-ul din memorie. Se foloseste o bariera
+pentru a sincroniza procesele dupa efectuarea filtrului curent.
+
+
+Bitire Catalin-Constantin
+335CC
+
+
